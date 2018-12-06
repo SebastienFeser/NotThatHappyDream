@@ -9,6 +9,9 @@ public class EnemyDoll : MonoBehaviour {
     [SerializeField] Rigidbody2D enemyRigidBody;
     [SerializeField] float enemySpeed;
 
+    [SerializeField] GameObject dollHead;
+    Vector2 dollHeadStartPosition;
+
     enum DollStates
     {
         GO_LEFT,
@@ -18,6 +21,8 @@ public class EnemyDoll : MonoBehaviour {
     }
 
     DollStates dollStates;
+
+    DollStates dollStateBackup;
 
     bool calledOnceInFunction = true;
     // Use this for initialization
@@ -37,9 +42,15 @@ public class EnemyDoll : MonoBehaviour {
                 GoRight();
                 break;
             case DollStates.LAUNCH_HEAD:
+                LaunchHead();
                 break;
             case DollStates.KILLED:
                 break;
+        }
+
+        if (enemyTransform.position.x - playerTransform.position.x <= 0.05f && enemyTransform.position.x - playerTransform.position.x >= -0.05f)
+        {
+            dollStates = DollStates.LAUNCH_HEAD;
         }
 		
 	}
@@ -71,6 +82,17 @@ public class EnemyDoll : MonoBehaviour {
         {
             dollStates = DollStates.GO_RIGHT;
             calledOnceInFunction = true;
+        }
+    }
+
+    void LaunchHead()
+    {
+        if (calledOnceInFunction)
+        {
+            enemyRigidBody.velocity = new Vector2(0, 0);
+            dollHeadStartPosition = enemyTransform.position;
+            Instantiate(dollHead, dollHeadStartPosition, Quaternion.identity);
+            calledOnceInFunction = false;
         }
     }
 }
