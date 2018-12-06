@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EnemyDoll : MonoBehaviour {
     [SerializeField] Transform enemyTransform;
-    [SerializeField] Transform playerTransform;
+    [SerializeField] GameObject playerGameObject;
     [SerializeField] Collider2D enemyCollider;
     [SerializeField] Rigidbody2D enemyRigidBody;
     [SerializeField] float enemySpeed;
+
+    GameObject dollHeadInstantiated;
 
     [SerializeField] GameObject dollHead;
     Vector2 dollHeadStartPosition;
@@ -25,9 +27,14 @@ public class EnemyDoll : MonoBehaviour {
     DollStates dollStateBackup;
 
     bool calledOnceInFunction = true;
+    bool calledOnceInFunctionHead = true;
+
+    bool checkPlayerPosition = true;
+
     // Use this for initialization
     void Start () {
         dollStates = DollStates.GO_RIGHT;
+        playerGameObject = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
@@ -48,9 +55,16 @@ public class EnemyDoll : MonoBehaviour {
                 break;
         }
 
-        if (enemyTransform.position.x - playerTransform.position.x <= 0.05f && enemyTransform.position.x - playerTransform.position.x >= -0.05f)
+        if (checkPlayerPosition 
+            && enemyTransform.position.x - playerGameObject.transform.position.x <= 0.05f 
+            && enemyTransform.position.x - playerGameObject.transform.position.x >= -0.05f)
         {
+
+            dollStateBackup = dollStates;
             dollStates = DollStates.LAUNCH_HEAD;
+            Debug.Log(dollStateBackup);
+            checkPlayerPosition = false;
+            calledOnceInFunction = true;
         }
 		
 	}
@@ -87,12 +101,20 @@ public class EnemyDoll : MonoBehaviour {
 
     void LaunchHead()
     {
-        if (calledOnceInFunction)
+        if (calledOnceInFunctionHead)
         {
             enemyRigidBody.velocity = new Vector2(0, 0);
             dollHeadStartPosition = enemyTransform.position;
-            Instantiate(dollHead, dollHeadStartPosition, Quaternion.identity);
-            calledOnceInFunction = false;
+            dollHeadInstantiated = new GameObject();
+            dollHeadInstantiated = Instantiate(dollHead, dollHeadStartPosition, Quaternion.identity);
+            calledOnceInFunctionHead = false;
+        }
+
+        if (dollHeadInstantiated == null)
+        {
+            dollStates = dollStateBackup;
+            checkPlayerPosition = true;
+            calledOnceInFunctionHead = true;
         }
     }
 }
