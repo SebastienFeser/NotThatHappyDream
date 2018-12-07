@@ -34,6 +34,8 @@ public class EnemyDollHead : MonoBehaviour
     void Update()
     {
 
+        
+
         switch (headStates)
         {
             case HeadStates.SPEED_UP:

@@ -873,6 +873,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 2000
   moveForce: 10000
+  bullet: {fileID: 1260569603106382, guid: 3d7b4c4f98879c94a9600b0257d83f76, type: 2}
+  bulletSpeed: 10
+  playerTransform: {fileID: 1475203136}
 --- !u!50 &1475203138
 Rigidbody2D:
   serializedVersion: 4
@@ -888,7 +891,7 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDrag: 20
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -931,7 +934,7 @@ GameObject:
   - component: {fileID: 1505161699}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
