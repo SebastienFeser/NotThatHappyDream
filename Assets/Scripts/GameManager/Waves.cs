@@ -9,6 +9,9 @@ public class Waves : MonoBehaviour {
 
     float startFunctionTime;
 
+    float LeftXSpawnerPosition = -11f;
+    float RightXSpawnerPosition = 11f;
+
     #region Enemies in Wave
     GameObject enemy1;
     GameObject enemy2;
@@ -20,6 +23,13 @@ public class Waves : MonoBehaviour {
     GameObject enemy8;
     GameObject enemy9;
     GameObject enemy10;
+    #endregion
+
+    #region Bools for time
+    bool timeWave1 = true;
+    bool timeWave2 = true;
+    bool timeWave3 = true;
+    bool timeWave4 = true;
     #endregion
 
     enum WaveLevel
@@ -68,6 +78,7 @@ public class Waves : MonoBehaviour {
                 Wave1();
                 break;
             case WaveLevel.WAVE_2:
+                Wave2();
                 break;
             case WaveLevel.WAVE_3:
                 break;
@@ -94,12 +105,47 @@ public class Waves : MonoBehaviour {
         {
             startFunctionTime = Time.timeSinceLevelLoad;
             calledOnceInFunction = false;
-            enemy1 = Instantiate(dollEnemy);
-            enemy2 = Instantiate(babyBearEnemy);
-            enemy3 = Instantiate(babyBearEnemy);
+            enemy1 = Instantiate(dollEnemy, new Vector3(-11f, dollEnemy.transform.position.y, 0), Quaternion.identity);
+            enemy2 = Instantiate(babyBearEnemy, new Vector3(-12f, 3.5f, 0), Quaternion.identity);
+            enemy3 = Instantiate(babyBearEnemy, new Vector3(12f, -2f, 0), Quaternion.identity);
         }
 
         if (enemy1 == null && enemy2 == null && enemy3 == null)
+        {
+            actualWave = ActualWave.WAVE_END;
+            calledOnceInFunction = true;
+        }
+
+
+    }
+
+    void Wave2()
+    {
+        if (calledOnceInFunction)
+        {
+            startFunctionTime = Time.timeSinceLevelLoad;
+            calledOnceInFunction = false;
+            enemy1 = Instantiate(dollEnemy, new Vector3(-12f, dollEnemy.transform.position.y, 0), Quaternion.identity);
+            enemy2 = Instantiate(babyBearEnemy, new Vector3(-12f, 2.5f, 0), Quaternion.identity);
+            enemy3 = Instantiate(babyBearEnemy, new Vector3(12f, 2.5f, 0), Quaternion.identity);
+            enemy4 = Instantiate(dollEnemy, new Vector3(12f, dollEnemy.transform.position.y, 0), Quaternion.identity);
+        }
+
+        if (Time.timeSinceLevelLoad - startFunctionTime >= 5f && timeWave1)
+        {
+
+            enemy5 = Instantiate(babyBearEnemy, new Vector3(12f, 3.5f, 0), Quaternion.identity);
+            timeWave1 = false;
+        }
+
+        if (Time.timeSinceLevelLoad - startFunctionTime >= 8f && timeWave2)
+        {
+
+            enemy6 = Instantiate(babyBearEnemy, new Vector3(-12f, -2f, 0), Quaternion.identity);
+            timeWave2 = false;
+        }
+
+        if (enemy1 == null && enemy2 == null && enemy3 == null && enemy4 == null && enemy5 == null && enemy6 == null)
         {
             actualWave = ActualWave.WAVE_END;
             calledOnceInFunction = true;
@@ -117,7 +163,18 @@ public class Waves : MonoBehaviour {
         }
         if (Time.timeSinceLevelLoad - startFunctionTime >= 3f)
         {
-            actualWave = ActualWave.WAVE;
+            switch (waveLevel)
+            {
+                case WaveLevel.WAVE_1:
+                    waveLevel = WaveLevel.WAVE_2;
+                    break;
+                case WaveLevel.WAVE_2:
+                    waveLevel = WaveLevel.WAVE_1;
+                    break;
+                case WaveLevel.WAVE_3:
+                    break;
+            }
+            actualWave = ActualWave.WAVE_START;
             calledOnceInFunction = true;
         }
     }

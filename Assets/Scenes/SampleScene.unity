@@ -1132,7 +1132,7 @@ GameObject:
   - component: {fileID: 1957384809}
   - component: {fileID: 1957384808}
   m_Layer: 0
-  m_Name: Wave1Text
+  m_Name: WaveText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

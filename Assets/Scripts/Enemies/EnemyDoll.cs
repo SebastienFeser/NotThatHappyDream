@@ -33,7 +33,14 @@ public class EnemyDoll : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        dollStates = DollStates.GO_RIGHT;
+        if (enemyTransform.position.x < 11f)
+        {
+            dollStates = DollStates.GO_RIGHT;
+        }
+        else
+        {
+            dollStates = DollStates.GO_LEFT;
+        }
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
 	}
 	

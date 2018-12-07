@@ -129,10 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTransform: {fileID: 4373291584789636}
-  playerTransform: {fileID: 0}
+  playerGameObject: {fileID: 0}
   enemyCollider: {fileID: 61267057681604886}
   enemyRigidBody: {fileID: 50550827993642038}
-  enemySpeed: 3
+  enemySpeed: 1
   dollHead: {fileID: 1781707274059664, guid: b9a8bc20c6e404248863219e5a323fc4, type: 2}
 --- !u!212 &212691218322114150
 SpriteRenderer:

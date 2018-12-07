@@ -13,9 +13,9 @@ public class EnemyBear : MonoBehaviour {
     float LeftXSpawnPosition = -11f;
     float RightXSpawnPosition = 11f;
 
-    float randomSpawnPositionY;
-    float randomSpawnPositionYMin = -2.5f;
-    float randomSpawnPositionYMax = 3f;
+    float positionY;
+    //float randomSpawnPositionYMin = -2.5f;
+    //float randomSpawnPositionYMax = 3f;
 
     enum BabyBearState
     {
@@ -31,8 +31,16 @@ public class EnemyBear : MonoBehaviour {
     bool calledOnceInFunction = true;
     
 	void Start () {
-        babyBearState = BabyBearState.WAIT_LEFT;        //Peut être changé lors de l'instanciement
-        randomSpawnPositionY = Random.Range(randomSpawnPositionYMin, randomSpawnPositionYMax);
+        enemyTransform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+        positionY = enemyTransform.position.y;
+        if (enemyTransform.position.x < 11f)
+        {
+            babyBearState = BabyBearState.GO_RIGHT;
+        }
+        else
+        {
+            babyBearState = BabyBearState.GO_LEFT;
+        }      
 		
 	}
 	
@@ -62,7 +70,7 @@ public class EnemyBear : MonoBehaviour {
     {
         if (calledOnceInFunction)
         {
-            enemyTransform.position = new Vector3(RightXSpawnPosition, randomSpawnPositionY, 0);
+            enemyTransform.position = new Vector3(RightXSpawnPosition, positionY, 0);
             enemyRigidBody.velocity = new Vector2(-enemySpeed, 0);
             calledOnceInFunction = false;
         }
@@ -78,7 +86,7 @@ public class EnemyBear : MonoBehaviour {
     {
         if (calledOnceInFunction)
         {
-            enemyTransform.position = new Vector3(LeftXSpawnPosition, randomSpawnPositionY, 0);
+            enemyTransform.position = new Vector3(LeftXSpawnPosition, positionY, 0);
             enemyRigidBody.velocity = new Vector2(enemySpeed, 0);
             calledOnceInFunction = false;
         }
