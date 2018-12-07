@@ -56,8 +56,8 @@ public class EnemyDoll : MonoBehaviour {
         }
 
         if (checkPlayerPosition 
-            && enemyTransform.position.x - playerGameObject.transform.position.x <= 0.05f 
-            && enemyTransform.position.x - playerGameObject.transform.position.x >= -0.05f)
+            && enemyTransform.position.x - playerGameObject.transform.position.x <= 0.1f 
+            && enemyTransform.position.x - playerGameObject.transform.position.x >= -0.1f)
         {
 
             dollStateBackup = dollStates;
@@ -105,7 +105,6 @@ public class EnemyDoll : MonoBehaviour {
         {
             enemyRigidBody.velocity = new Vector2(0, 0);
             dollHeadStartPosition = enemyTransform.position;
-            dollHeadInstantiated = new GameObject();
             dollHeadInstantiated = Instantiate(dollHead, dollHeadStartPosition, Quaternion.identity);
             calledOnceInFunctionHead = false;
         }
