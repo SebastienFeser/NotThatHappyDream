@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBigBear : MonoBehaviour {
 
-    [SerializeField] float bearLife;
+    [SerializeField] float bearLife = 500;
     [SerializeField] float verticalSpeed;
     [SerializeField] float horizontalSpeed;
     [SerializeField] float waitingTime;
@@ -12,7 +12,7 @@ public class EnemyBigBear : MonoBehaviour {
     float timerCount;
 
     Vector2 leftSpawner = new Vector2(-5.5f, -9);
-    Vector2 rightSpawner = new Vector2(5.5f, 9);
+    Vector2 rightSpawner = new Vector2(5.5f, 12);
 
     #region Stop Positions
     Vector2 upLeft = new Vector2(-5.5f, 3);
@@ -39,6 +39,10 @@ public class EnemyBigBear : MonoBehaviour {
 
     private void Start()
     {
+        verticalSpeed = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().BearBossSpeedVertical;
+        horizontalSpeed = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().BearBossSpeedHorizontal;
+        waitingTime = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().BearBossWaitingTime;
+
         if (gameObject.transform.position.x < 0)
         {
             gameObject.transform.position = leftSpawner;
@@ -101,7 +105,7 @@ public class EnemyBigBear : MonoBehaviour {
             calledOnceInFunction = false;
         }
 
-        if (gameObject.transform.position.y >= downRight.y)
+        if (gameObject.transform.position.y <= downRight.y)
         {
             bigBearStatesBackup = bigBearStates;
             enemyRigidBody.velocity = new Vector2(0, 0);
@@ -119,7 +123,7 @@ public class EnemyBigBear : MonoBehaviour {
             calledOnceInFunction = false;
         }
 
-        if (gameObject.transform.position.y >= downLeft.y)
+        if (gameObject.transform.position.x <= downLeft.x)
         {
             bigBearStatesBackup = bigBearStates;
             enemyRigidBody.velocity = new Vector2(0, 0);
@@ -137,7 +141,7 @@ public class EnemyBigBear : MonoBehaviour {
             calledOnceInFunction = false;
         }
 
-        if (gameObject.transform.position.y >= upRight.y)
+        if (gameObject.transform.position.x >= upRight.x)
         {
             bigBearStatesBackup = bigBearStates;
             enemyRigidBody.velocity = new Vector2(0, 0);
@@ -187,5 +191,19 @@ public class EnemyBigBear : MonoBehaviour {
         }
 
             return state;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Bullet")
+        {
+            bearLife = bearLife - 10;
+            Destroy(collision.gameObject);
+            if (bearLife <= 0)
+            {
+                bigBearStates = BigBear.KILLED;
+            }
+            
+        }
     }
 }

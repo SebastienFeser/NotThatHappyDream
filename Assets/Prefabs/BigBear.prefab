@@ -118,10 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae813bc5777252d4097b789c747cb222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bearLife: 100
+  bearLife: 500
   verticalSpeed: 3
   horizontalSpeed: 6
-  waitingTime: 3
+  waitingTime: 2
   enemyRigidBody: {fileID: 50459907270696018}
 --- !u!212 &212444424823597832
 SpriteRenderer:

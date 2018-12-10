@@ -84,11 +84,18 @@ public class PlayerControler : MonoBehaviour
                 Destroy(collision.gameObject);
             }
             health = health - 20;
-            if (health <= 0)
-            {
-                health = 0;
-            }
             lifeBar.fillAmount = (lifeBarOriginalFillSize/100) * health;
+        }
+
+        if (collision.tag == "BossEnemy")
+        {
+            health = health - 50;
+            lifeBar.fillAmount = (lifeBarOriginalFillSize / 100) * health;
+        }
+
+        if (health <= 0)
+        {
+            health = 0;
         }
     }
 }
