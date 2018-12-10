@@ -35,9 +35,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4373291584789636}
-  - component: {fileID: 61267057681604886}
   - component: {fileID: 50550827993642038}
   - component: {fileID: 114606258918308036}
+  - component: {fileID: 70722754070216570}
   m_Layer: 0
   m_Name: EnemyDoll
   m_TagString: Enemy
@@ -53,7 +53,7 @@ Transform:
   m_GameObject: {fileID: 1244331894033948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4373291584789636}
   m_RootOrder: 0
@@ -66,7 +66,7 @@ Transform:
   m_GameObject: {fileID: 1379431049389240}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -11, y: -3.125, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4131324149513584}
   m_Father: {fileID: 0}
@@ -92,8 +92,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61267057681604886
-BoxCollider2D:
+--- !u!70 &70722754070216570
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -105,18 +105,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
 --- !u!114 &114606258918308036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,9 +120,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTransform: {fileID: 4373291584789636}
   playerGameObject: {fileID: 0}
-  enemyCollider: {fileID: 61267057681604886}
+  enemyCollider: {fileID: 70722754070216570}
   enemyRigidBody: {fileID: 50550827993642038}
   enemySpeed: 1
+  normalSprite: {fileID: 21300000, guid: 167c1c2f46e76ff4aabaece1acb50e52, type: 3}
+  launchSprite: {fileID: 21300000, guid: b071b734ab94b2b4cada1de57aa83504, type: 3}
+  spriteRenderer: {fileID: 212691218322114150}
   dollHead: {fileID: 1781707274059664, guid: b9a8bc20c6e404248863219e5a323fc4, type: 2}
 --- !u!212 &212691218322114150
 SpriteRenderer:
@@ -169,8 +162,8 @@ SpriteRenderer:
   m_SortingLayerID: 2045029963
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 42569f0d497ef0f4181d86ee82877604, type: 3}
-  m_Color: {r: 0, g: 0.10905695, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 167c1c2f46e76ff4aabaece1acb50e52, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

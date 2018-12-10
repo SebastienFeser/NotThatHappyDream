@@ -31,6 +31,7 @@ public class EnemyBear : MonoBehaviour {
     bool calledOnceInFunction = true;
     
 	void Start () {
+        enemySpeed = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().BabyBearSpeed;
         enemyTransform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         positionY = enemyTransform.position.y;
         if (enemyTransform.position.x < 11f)

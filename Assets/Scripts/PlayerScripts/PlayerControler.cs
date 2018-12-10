@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] float bulletSpeed;
     [SerializeField] Transform playerTransform;
+
+    [SerializeField] Image lifeBar;
+    [SerializeField] float health = 100;
+    float lifeBarOriginalFillSize;
 
 
     private Rigidbody2D playerRigidbody2D;
@@ -33,6 +38,7 @@ public class PlayerControler : MonoBehaviour
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerLookingRight = true;
+        lifeBarOriginalFillSize = lifeBar.fillAmount;
 
     }
 
@@ -67,6 +73,19 @@ public class PlayerControler : MonoBehaviour
             playerLookingRight = false;
         }
         Debug.Log(playerLookingRight);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy" || collision.tag == "EnemyBullet")
+        {
+            health = health - 20;
+            if (health <= 0)
+            {
+                health = 0;
+            }
+            lifeBar.fillAmount = (lifeBarOriginalFillSize/100) * health;
+        }
     }
 }
 

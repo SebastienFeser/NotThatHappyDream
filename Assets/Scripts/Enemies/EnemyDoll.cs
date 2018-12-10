@@ -8,6 +8,9 @@ public class EnemyDoll : MonoBehaviour {
     [SerializeField] Collider2D enemyCollider;
     [SerializeField] Rigidbody2D enemyRigidBody;
     [SerializeField] float enemySpeed;
+    [SerializeField] Sprite normalSprite;
+    [SerializeField] Sprite launchSprite;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     GameObject dollHeadInstantiated;
 
@@ -33,6 +36,8 @@ public class EnemyDoll : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        spriteRenderer.sprite = normalSprite;
+        enemySpeed = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().DollSpeed;
         if (enemyTransform.position.x < 11f)
         {
             dollStates = DollStates.GO_RIGHT;
@@ -110,6 +115,7 @@ public class EnemyDoll : MonoBehaviour {
     {
         if (calledOnceInFunctionHead)
         {
+            spriteRenderer.sprite = launchSprite;
             enemyRigidBody.velocity = new Vector2(0, 0);
             dollHeadStartPosition = enemyTransform.position;
             dollHeadInstantiated = Instantiate(dollHead, dollHeadStartPosition, Quaternion.identity);
@@ -118,6 +124,7 @@ public class EnemyDoll : MonoBehaviour {
 
         if (dollHeadInstantiated == null)
         {
+            spriteRenderer.sprite = normalSprite;
             dollStates = dollStateBackup;
             checkPlayerPosition = true;
             calledOnceInFunctionHead = true;
