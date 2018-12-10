@@ -79,6 +79,10 @@ public class PlayerControler : MonoBehaviour
     {
         if (collision.tag == "Enemy" || collision.tag == "EnemyBullet")
         {
+            if (collision.tag == "Enemy")
+            {
+                Destroy(collision.gameObject);
+            }
             health = health - 20;
             if (health <= 0)
             {

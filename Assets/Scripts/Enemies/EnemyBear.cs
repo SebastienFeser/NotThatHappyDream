@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyBear : MonoBehaviour {
     [SerializeField] Transform enemyTransform;
-    [SerializeField] Collider2D enemyCollider;
     [SerializeField] Rigidbody2D enemyRigidBody;
     [SerializeField] float enemySpeed;
     [SerializeField] float waitingTime = 3f;

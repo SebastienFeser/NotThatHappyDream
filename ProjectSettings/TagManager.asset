@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - GameManager
   - EnemyBullet
+  - BossEnemy
   layers:
   - Default
   - TransparentFX
@@ -43,8 +44,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackBackground
+    uniqueID: 3636643343
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: EnemyBoss
+    uniqueID: 767137417
     locked: 0
   - name: BackGround
     uniqueID: 3120924811
