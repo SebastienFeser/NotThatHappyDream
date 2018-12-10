@@ -86,10 +86,10 @@ public class EnemyBigBear : MonoBehaviour {
         if (gameObject.transform.position.y >= upLeft.y)
         {
             bigBearStatesBackup = bigBearStates;
-            bigBearStates = BigBear.WAITING;
             enemyRigidBody.velocity = new Vector2(0, 0);
             gameObject.transform.position = upLeft;
             calledOnceInFunction = true;
+            bigBearStates = BigBear.WAITING;
         }
     }
 
@@ -104,10 +104,10 @@ public class EnemyBigBear : MonoBehaviour {
         if (gameObject.transform.position.y >= downRight.y)
         {
             bigBearStatesBackup = bigBearStates;
-            bigBearStates = BigBear.WAITING;
             enemyRigidBody.velocity = new Vector2(0, 0);
             gameObject.transform.position = downRight;
             calledOnceInFunction = true;
+            bigBearStates = BigBear.WAITING;
         }
     }
 
@@ -122,10 +122,10 @@ public class EnemyBigBear : MonoBehaviour {
         if (gameObject.transform.position.y >= downLeft.y)
         {
             bigBearStatesBackup = bigBearStates;
-            bigBearStates = BigBear.WAITING;
             enemyRigidBody.velocity = new Vector2(0, 0);
             gameObject.transform.position = downLeft;
             calledOnceInFunction = true;
+            bigBearStates = BigBear.WAITING;
         }
     }
 
@@ -140,10 +140,10 @@ public class EnemyBigBear : MonoBehaviour {
         if (gameObject.transform.position.y >= upRight.y)
         {
             bigBearStatesBackup = bigBearStates;
-            bigBearStates = BigBear.WAITING;
             enemyRigidBody.velocity = new Vector2(0, 0);
             gameObject.transform.position = upRight;
             calledOnceInFunction = true;
+            bigBearStates = BigBear.WAITING;
         }
     }
 
@@ -154,12 +154,38 @@ public class EnemyBigBear : MonoBehaviour {
             timerCount = Time.timeSinceLevelLoad;
             calledOnceInFunction = false;
         }
-        if (Time.timeSinceLevelLoad - timerCount >= )
+        if (Time.timeSinceLevelLoad - timerCount >= waitingTime)
+        {
+            bigBearStates = StateSelector(bigBearStates);
+            calledOnceInFunction = true;
+        }
 
     }
 
     void Killed()
     {
+        Destroy(gameObject);
+    }
 
+    BigBear StateSelector(BigBear state)
+    {
+        
+        switch (bigBearStatesBackup)
+        {
+            case BigBear.GO_UP:
+                state = BigBear.GO_RIGHT;
+                break;
+            case BigBear.GO_DOWN:
+                state = BigBear.GO_LEFT;
+                break;
+            case BigBear.GO_LEFT:
+                state = BigBear.GO_UP;
+                break;
+            case BigBear.GO_RIGHT:
+                state = BigBear.GO_DOWN;
+                break;
+        }
+
+            return state;
     }
 }
