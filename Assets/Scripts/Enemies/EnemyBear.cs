@@ -117,27 +117,3 @@ public class EnemyBear : MonoBehaviour {
         }
     }
 }
-
-/* TO DELETE!!!
-if (calledOnceInFunction)
-        {
-            dollSpeed = 2f;
-            babyBearSpeed = 6f;
-            startFunctionTime = Time.timeSinceLevelLoad;
-            calledOnceInFunction = false;
-        }
-
-        if (Time.timeSinceLevelLoad 
-        - startFunctionTime >= 5f && timeWave2)
-        {
-            timeWave2 = false;
-        }
- 
-
-
-    enemy1 = Instantiate(dollEnemy, 
-    new Vector3
-    (-12f, dollEnemy.transform.position.y, 0),
-    Quaternion.identity);
-     
-     */

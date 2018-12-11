@@ -490,12 +490,12 @@ SpriteRenderer:
   m_SortingLayerID: -658323953
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d4246637976697c4089955c5ef30dd2f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fdf3d336a6de74042a2a1216cc057052, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 50, y: 50}
+  m_Size: {x: 50, y: 29.999998}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -526,7 +526,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 808264453}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -562,9 +562,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
   orthographic: 1
   orthographic size: 5
   m_Depth: -1
@@ -576,7 +576,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 0
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 0
@@ -886,7 +886,7 @@ Transform:
   m_GameObject: {fileID: 1356921256}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99, y: 0.99, z: 0.99}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.99}
   m_Children: []
   m_Father: {fileID: 1475203136}
   m_RootOrder: 0
@@ -927,8 +927,8 @@ SpriteRenderer:
   m_SortingLayerID: -512214811
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 42569f0d497ef0f4181d86ee82877604, type: 3}
-  m_Color: {r: 0.3106432, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c0bf6e798fc9ed04287bbdbcb0755b5e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -947,9 +947,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1475203136}
-  - component: {fileID: 1475203139}
   - component: {fileID: 1475203138}
   - component: {fileID: 1475203137}
+  - component: {fileID: 1475203139}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -986,9 +986,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 2500
   moveForce: 10000
+  playerSpriteRenderer: {fileID: 1356921258}
   bullet: {fileID: 1260569603106382, guid: 3d7b4c4f98879c94a9600b0257d83f76, type: 2}
   bulletSpeed: 9
   playerTransform: {fileID: 1475203136}
+  running: {fileID: 7400000, guid: 7bbc8c8b5dca59346b979ce2a98363e8, type: 2}
   lifeBar: {fileID: 1980083349}
   health: 100
 --- !u!50 &1475203138
@@ -1012,11 +1014,10 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &1475203139
-BoxCollider2D:
+--- !u!58 &1475203139
+CircleCollider2D:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 61328472168509366, guid: 3fedba11d0599464ca60beabf9b2d711,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1475203135}
   m_Enabled: 1
@@ -1025,19 +1026,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: -0.1, y: -0.07}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.7
 --- !u!1 &1505161697
 GameObject:
   m_ObjectHideFlags: 0

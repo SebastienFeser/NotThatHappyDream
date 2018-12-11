@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Waves : MonoBehaviour
@@ -882,7 +883,8 @@ public class Waves : MonoBehaviour
         {
 
             textWaves.text = "";
-            //Load Victory
+            SceneManager.LoadScene("Victory");
+            
         }
     }
 

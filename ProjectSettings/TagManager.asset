@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - EnemyBullet
   - BossEnemy
+  - CMCam
   layers:
   - Default
   - TransparentFX

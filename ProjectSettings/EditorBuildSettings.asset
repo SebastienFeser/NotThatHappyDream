@@ -6,6 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 27084f0260af8f0469e3879dcd221c57
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 111ddd1006924c84fb3e490274e164ed
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 41737cda44c738b458b4f1885275c83a
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: de4efd3f807d91e42ade39ab356c9b8c
+  - enabled: 1
+    path: Assets/Scenes/FirstHug.unity
+    guid: 6361bba0d0dc7094ca762e87e676e353
+  - enabled: 1
+    path: Assets/Scenes/Wave0.unity
+    guid: ea3d31ea088ce2045bccebe3529f7369
+  - enabled: 1
+    path: Assets/Scenes/BearTransform.unity
+    guid: a4b6361957a949642af5425dd7444568
   m_configObjects: {}

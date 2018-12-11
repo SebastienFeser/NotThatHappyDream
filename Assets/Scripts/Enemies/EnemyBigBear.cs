@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class EnemyBigBear : MonoBehaviour {
 
@@ -9,6 +10,12 @@ public class EnemyBigBear : MonoBehaviour {
     [SerializeField] float horizontalSpeed;
     [SerializeField] float waitingTime;
     [SerializeField] Rigidbody2D enemyRigidBody;
+    [SerializeField] SpriteRenderer bigBearSpriteRenderer;
+    [SerializeField] Sprite normal;
+    [SerializeField] Sprite rush;
+    //private CinemachineVirtualCamera vcam;
+    //private CinemachineBasicMultiChannelPerlin noise;
+
     float timerCount;
 
     Vector2 leftSpawner = new Vector2(-5.5f, -9);
@@ -39,6 +46,9 @@ public class EnemyBigBear : MonoBehaviour {
 
     private void Start()
     {
+        //vcam = GameObject.FindGameObjectWithTag("CMCam").GetComponent<CinemachineVirtualCamera>();
+        //noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        bigBearSpriteRenderer.sprite = normal;
         verticalSpeed = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().BearBossSpeedVertical;
         horizontalSpeed = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().BearBossSpeedHorizontal;
         waitingTime = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Waves>().BearBossWaitingTime;
@@ -56,6 +66,7 @@ public class EnemyBigBear : MonoBehaviour {
     }
 
     void Update () {
+        ShakeCamera(100,100);
 		switch (bigBearStates)
         {
             case BigBear.GO_UP:
@@ -120,12 +131,14 @@ public class EnemyBigBear : MonoBehaviour {
         if (calledOnceInFunction)
         {
             enemyRigidBody.velocity = new Vector2(-horizontalSpeed, 0);
+            bigBearSpriteRenderer.sprite = rush;
             calledOnceInFunction = false;
         }
 
         if (gameObject.transform.position.x <= downLeft.x)
         {
             bigBearStatesBackup = bigBearStates;
+            bigBearSpriteRenderer.sprite = normal;
             enemyRigidBody.velocity = new Vector2(0, 0);
             gameObject.transform.position = downLeft;
             calledOnceInFunction = true;
@@ -137,12 +150,14 @@ public class EnemyBigBear : MonoBehaviour {
     {
         if (calledOnceInFunction)
         {
+            bigBearSpriteRenderer.sprite = rush;
             enemyRigidBody.velocity = new Vector2(horizontalSpeed, 0);
             calledOnceInFunction = false;
         }
 
         if (gameObject.transform.position.x >= upRight.x)
         {
+            bigBearSpriteRenderer.sprite = normal;
             bigBearStatesBackup = bigBearStates;
             enemyRigidBody.velocity = new Vector2(0, 0);
             gameObject.transform.position = upRight;
@@ -205,5 +220,11 @@ public class EnemyBigBear : MonoBehaviour {
             }
             
         }
+    }
+
+    private void ShakeCamera(float amplitudeGain, float frequencyGain)
+    {
+        //noise.m_AmplitudeGain = amplitudeGain;
+        //noise.m_FrequencyGain = frequencyGain;
     }
 }

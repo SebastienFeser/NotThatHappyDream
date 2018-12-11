@@ -3,17 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControler : MonoBehaviour
 {
+    float moveX;
+    bool jump;
+    bool fire;
     [SerializeField] private float jumpForce = 1.0f;
 
     [SerializeField] private float moveForce = 1.0f;
 
+    [SerializeField] SpriteRenderer playerSpriteRenderer;
+
     [SerializeField] GameObject bullet;
     [SerializeField] float bulletSpeed;
     [SerializeField] Transform playerTransform;
-
+    [SerializeField] AnimationClip running;
     [SerializeField] Image lifeBar;
     [SerializeField] float health = 100;
     float lifeBarOriginalFillSize;
@@ -22,6 +28,7 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody2D playerRigidbody2D;
 
     bool playerLookingRight;
+    bool facingRight = true;
 
     public bool PlayerLookingRight
     {
@@ -41,27 +48,44 @@ public class PlayerControler : MonoBehaviour
         lifeBarOriginalFillSize = lifeBar.fillAmount;
 
     }
+    private void Update()
+    {
+        moveX = Input.GetAxisRaw("Horizontal");
+        if (Input.GetButtonDown("Jump"))
+            jump = true;
+        if (Input.GetButtonDown("Fire1"))
+            fire = true;
+        if (moveX !=0)
+        {
+        }
+    }
 
-    void Update()
+    void FixedUpdate()
     {
 
-        float moveX = Input.GetAxisRaw("Horizontal");
         playerRigidbody2D.AddForce(new Vector2(moveX, 0) * moveForce * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump"))
+        if (jump)
         {
             playerRigidbody2D.AddForce(Vector2.up * jumpForce);
+            jump = false;
 
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (fire)
         {
             GameObject bulletGo;
-             bulletGo = Instantiate(bullet, new Vector2(playerTransform.position.x, playerTransform.position.y), Quaternion.identity);
             if (PlayerLookingRight)
+            {
+                bulletGo = Instantiate(bullet, new Vector2(playerTransform.position.x + 0.9f, playerTransform.position.y +0.2f), Quaternion.identity);
                 bulletGo.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, 0);
+            }
             else
+            {
+                bulletGo = Instantiate(bullet, new Vector2(playerTransform.position.x - 0.9f, playerTransform.position.y + 0.2f), Quaternion.identity);
                 bulletGo.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, 0);
+            }
+            fire = false;
         }
 
         if (moveX * moveForce * Time.deltaTime > 0)
@@ -72,7 +96,21 @@ public class PlayerControler : MonoBehaviour
         {
             playerLookingRight = false;
         }
-        Debug.Log(playerLookingRight);
+
+        if (facingRight == false && moveX > 0)
+        {
+            facingRight = !facingRight;
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
+        }
+        else if (facingRight == true && moveX < 0)
+        {
+            facingRight = !facingRight;
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -96,6 +134,7 @@ public class PlayerControler : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
+            SceneManager.LoadScene("Lose");
         }
     }
 }
@@ -105,118 +144,3 @@ public class PlayerControler : MonoBehaviour
 
 
 
-/*
-CODE DE ADAM:
-
-public class PlayerControler : MonoBehaviour
-{
-    [SerializeField] private float jumpForce = 1.0f;
-
-    [SerializeField] private float moveForce = 1.0f;
-
-
-    private Rigidbody2D playerRigidbody2D;
-
-    bool playerLookingRight;
-
-    public bool PlayerLookingRight
-    {
-        get
-        {
-            return playerLookingRight;
-        }
-    }
-    
-
-
-
-    void Start()
-    {
-        playerRigidbody2D = GetComponent<Rigidbody2D>();
-        playerLookingRight = true;
-
-    }
-
-    void Update()
-    {
-
-        float moveX = Input.GetAxisRaw("Horizontal");
-        playerRigidbody2D.AddForce(new Vector2(moveX, 0) * moveForce * Time.deltaTime);
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            playerRigidbody2D.AddForce(Vector2.up * jumpForce);
-
-        }
-
-        if (moveX * moveForce * Time.deltaTime >= 0.5)
-        {
-            playerLookingRight = true;
-        }
-        else if (moveX * moveForce * Time.deltaTime <= -0.5)
-        {
-            playerLookingRight = false;
-        }
-        Debug.Log(playerLookingRight);
-        //Debug.Log(moveX * moveForce * Time.deltaTime);
-    }
-}
-
-    */
-
-/*CODE DE SEB
-public class PlayerControler : MonoBehaviour
-{
-[SerializeField] float speed;
-[SerializeField] float jumpforce;
-float moveInput;
-
-private Rigidbody2D playerRigidbody2D;
-
-bool playerLookingRight;
-
-public bool PlayerLookingRight
-{
-    get
-    {
-        return playerLookingRight;
-    }
-}
-
-
-
-
-void Start()
-{
-    playerRigidbody2D = GetComponent<Rigidbody2D>();
-    playerLookingRight = true;
-
-}
-
-void Update()
-{
-
-}
-
-private void FixedUpdate()
-{
-    moveInput = Input.GetAxis("Horizontal");
-    playerRigidbody2D.velocity = new Vector2(moveInput * speed, playerRigidbody2D.velocity.y);
-
-    if (moveInput > 0 && !playerLookingRight)
-    {
-        playerLookingRight = true;
-    }
-    if (moveInput < 0 && playerLookingRight)
-    {
-        playerLookingRight = false;
-    }
-    Debug.Log(playerLookingRight);
-}
-
-
-
-}
-
-
-*/
